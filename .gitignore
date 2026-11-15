@@ -7,6 +7,7 @@ docs/
 basic.so
 basic.dylib
 basic.dll
+basic_script.txt
 libbasic.a
 basic.a
 basic.lib
