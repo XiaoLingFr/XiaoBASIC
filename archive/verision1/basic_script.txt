@@ -1,0 +1,16 @@
+func1:
+    print "hello world"
+    ret
+
+debugging:
+    print debug1
+    print debug2
+    ret
+
+main:
+    call func1
+    call debugging
+    free debug1
+    free debug2
+
+    print "end"
