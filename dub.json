@@ -1,0 +1,9 @@
+{
+	"description": "A variation of the BASIC language",
+	"license": "GPL-3.0-or-later",
+	"authors": [
+		"Chengfu Zhao"
+	],
+	"copyright": "Copyright © 2026, Chengfu Zhao",
+	"name": "basic"
+}
