@@ -1,5 +1,18 @@
 import std.stdio;
 import std.file;
+import std.conv;
+
+enum type : int {
+	integer = 1,
+	str 	= 2
+}
+
+//this will be where we get the stuff lmao.
+ulong[string] labels;
+
+//variables
+long[string] int_variables;
+string[string] str_variables;
 
 void main(string[] args)
 {
@@ -10,9 +23,6 @@ void main(string[] args)
 	bool end = false;
 	ulong counter = 0;
 	bool main_found = false;
-
-	//this will be where we get the stuff lmao.
-	ulong[string] labels;
 
 	ulong[] return_address;
 
@@ -44,6 +54,10 @@ void main(string[] args)
 	catch(FileException FE){
 		writeln("Could not acccess file");
 	}
+
+	//insert some debug variables
+	//int_variables["debug1"] = 45;
+	//str_variables["debug2"] = "hello world";
 
 	//XiaoBASIC expects a main label
 	while(!end){
@@ -128,35 +142,9 @@ void main(string[] args)
 				//then checks for keywords
 				switch(instruction[0]){
 					case "print":
-						string temp = "";
-						int quote_count = 0;
-						ulong index = 0;
-
-						//writeln(instruction); //debug
-
-						if(instruction.length < 3){
-							writeln("not enough arguments or too many arguments");
-						}
-
-						for(ulong i = 1; i<instruction.length && quote_count < 2; i++){
-							if(instruction[i] != "\""){
-								temp ~= instruction[i];
-								temp ~= " ";
-							}
-							else{
-								quote_count++;
-							}
-
-							if(quote_count == 2){
-								index = i;
-							}
-						}
-						if(quote_count < 2){
-							writeln("Improper usage of built-in function print");
-							goto closed_not_nicely;
-						}
-						writeln(temp);
-						if(index < instruction.length - 1){
+						bool success = print(instruction);
+						if(success == false){
+							writeln("Syntax error on print statement");
 							goto closed_not_nicely;
 						}
 						break;
@@ -241,6 +229,91 @@ void main(string[] args)
 
 	exit:
 	return;
+}
+void free(string[] instruction){
+	return;
+}
+
+bool print(string[] instruction){
+	string temp = "";
+	int quote_count = 0;
+	ulong index = 0;
+
+	string *str_ptr;
+	long *long_ptr;
+
+	//check if a variable, if not, remove it
+	if(instruction.length == 2){
+		str_ptr = instruction[1] in str_variables;
+		if(str_ptr !is null){
+			instruction[1] = "\"";
+			instruction ~= [*str_ptr];
+			instruction ~= "\"";
+			goto print_continue;
+		}
+
+		long_ptr = instruction[1] in int_variables;
+		long temp_def = *long_ptr;
+		if(long_ptr !is null){
+			instruction[1] = "\"";
+			instruction ~= temp_def.to!string;
+			instruction ~= "\"";
+			goto print_continue;
+		}
+
+		variable_print_failed:
+		writeln("Improper usage of variable print");
+		return false;
+	}
+
+	print_continue:
+	//writeln(instruction); //debug
+
+	if(instruction.length < 3){
+		writeln("Invalid combination of arguments for print");
+		return false;
+	}
+
+	for(ulong i = 1; i<instruction.length && quote_count < 2; i++){
+		if(instruction[i] != "\""){
+			temp ~= instruction[i];
+			temp ~= " ";
+		}
+		else{
+			quote_count++;
+		}
+
+		if(quote_count == 2){
+			index = i;
+		}
+	}
+	if(quote_count < 2){
+		writeln("Improper usage of built-in function print");
+		return false;
+	}
+	writeln(temp);
+	if(index < instruction.length - 1){
+		return false;
+	}
+	return true;
+}
+
+//only applies to variable assignment
+int eval_assignment(string[] instruction){
+
+	//an expression might look like this:
+	//	x = ((4+5)*3 - 2)									<- valid
+	//	s = "wsggggggg" 									<- valid
+	//	b = (4 < 5) 										<- if true, it returns 1, if false, it returns 0
+	//	i = ("wsggg" + 1) 									<- invalid
+	//	i2 = (1 + "1") 										<- invalid
+	//first thing's first, an expression will always
+
+	string target = instruction[0];
+
+	
+
+	return true;
 }
 
 void error(string[] instruction){
