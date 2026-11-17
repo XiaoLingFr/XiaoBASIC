@@ -1,0 +1,18 @@
+hang:
+    print x
+    x = x 1 -
+    beq x 0 out
+    jmp hang
+
+out:
+    print "end"
+    ret
+
+function:
+    print "W function"
+    ret
+main:
+    print "hello world"
+    call function 
+    x = 10
+    call hang

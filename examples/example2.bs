@@ -1,0 +1,16 @@
+main:
+    x = 3
+    y = x 1 + 
+
+    blt x y not_larger
+    bgt x y larger
+    jmp end
+
+not_larger:
+    print "var_x is smaller"
+    jmp end
+larger:
+    print "var_x is larger"
+    jmp end
+end:
+    print "program has stopped"

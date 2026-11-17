@@ -1,0 +1,7 @@
+main:
+    input str s
+    input int x 
+
+    print s
+    print x 
+
