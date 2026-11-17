@@ -6,3 +6,4 @@ main:
     input int age
     o @ "You are " name " and you are " age " years old "
     print o
+    free o

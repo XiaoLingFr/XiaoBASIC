@@ -25,6 +25,7 @@ unc_status:
     approaching = 10 age age 10 % - +
     o @ "Pushing " approaching "and you're coding in a random ahh language"
     print o
+    free o
     jmp introduction_end
 
 introduction_end:
