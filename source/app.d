@@ -255,6 +255,11 @@ void main(string[] args)
 				//evaluate expression in instruction;
 				//writeln(instruction); //debug
 
+				//ignore labels.
+				if(instruction.length == 2 && instruction[1] == ":"){
+					goto case_end;
+				}
+
 				//then checks for keywords
 				switch(instruction[0]){
 					//this is a comment
@@ -270,7 +275,6 @@ void main(string[] args)
 							writeln("Error: too many operands");
 							goto closed_not_nicely;
 						}
-
 						switch(instruction[1]){
 							case "str":
 								//we need to check if the variable is in int_variables, or else there will be naming conflicts
