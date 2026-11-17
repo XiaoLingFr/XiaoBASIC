@@ -168,7 +168,7 @@ bool eval(ulong[string] labels, long[string] int_variables, string[string] str_v
                 instructions[i] = (*var_ptr).to!string;
             }
         }
-        if(instructions[1].to!long < instructions[2].to!long){
+        if(instructions[1].to!long <= instructions[2].to!long){
             ulong *label_ptr = (instructions[3] in labels);
             if(label_ptr is null){
                 end_horribly();
@@ -187,7 +187,7 @@ bool eval(ulong[string] labels, long[string] int_variables, string[string] str_v
                 instructions[i] = (*var_ptr).to!string;
             }
         }
-        if(instructions[1].to!long < instructions[2].to!long){
+        if(instructions[1].to!long >= instructions[2].to!long){
             ulong *label_ptr = (instructions[3] in labels);
             if(label_ptr is null){
                 end_horribly();

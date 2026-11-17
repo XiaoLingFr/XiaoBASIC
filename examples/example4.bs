@@ -1,0 +1,33 @@
+introduction:
+    print "What is your name? "
+    input str name
+    
+    print "What is your age? "
+    input int age
+
+    o @ "You are " name " and you are " age " years old "
+    free o
+
+    bgt age 40 unc_status
+    bge age 18 normal_guy
+    jmp middle_schooler
+
+middle_schooler:
+    print "Why is your voice cracking?"
+    jmp introduction_end
+
+normal_guy:
+    print "type shi"
+    jmp introduction_end
+
+unc_status:
+    approaching = 10 age age 10 % - +
+    o @ "Pushing " approaching "and you're coding in a random ahh language"
+    print o
+    jmp introduction_end
+
+introduction_end:
+    ret
+
+main:
+    call introduction
