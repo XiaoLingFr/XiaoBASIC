@@ -203,8 +203,6 @@ void main(string[] args)
 				goto case '/';
 			case ':':
 				goto case '/';
-			case ',':
-				goto case '/';
 			case '%':
 				goto case '/';
 			case '"':

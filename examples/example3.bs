@@ -1,7 +1,8 @@
 main:
-    input str s
-    input int x 
+    print "What is your name?"
+    input str name
 
-    print s
-    print x 
-
+    print "How old are you?"
+    input int age
+    o @ "You are " name " and you are " age " years old "
+    print o

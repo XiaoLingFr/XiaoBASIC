@@ -28,8 +28,63 @@ bool eval(ulong[string] labels, long[string] int_variables, string[string] str_v
         return true;
     }
 
+    //string assignment
+    if(instructions.length >=3 && instructions[1] == "@"){
+        //check if variable has already been declared as an integer
+        long *int_ptr = instructions[0] in int_variables;
+        if(int_ptr !is null){
+            end_horribly();
+        }
+    
+        //iterate over and replace
+        ulong ptr = 2;
+        string temp;
+        ulong counter = 0;
+        while(ptr < instructions.length){
+            if(instructions[ptr] == "\""){
+                counter = counter + 1;
+                counter = counter % 2;
+            }
+            else{
+                switch(counter){
+                    case 1: //insider quotes
+                        temp ~= instructions[ptr];
+                        temp ~= " ";
+                        break;
+                    default:
+                        string *str_ptr = instructions[ptr] in str_variables;
+                        if(str_ptr is null){
+                            int_ptr = instructions[ptr] in int_variables;
+                            if(int_ptr !is null){
+                                temp ~= (*int_ptr).to!string;
+                                temp ~= " ";
+                            }
+                            else{
+                                end_horribly();
+                            }
+                        }
+                        else{
+                            temp ~= *str_ptr;
+                            temp ~= " ";
+                        }
+                        break;
+                }
+            }
+            ptr = ptr + 1;
+        }
+
+        str_variables[instructions[0]] = temp;
+
+        return true;
+    }
+
     //assignment with operations
     if(instructions.length >= 3 && instructions[1] == "="){
+        long *str_ptr = instructions[0] in int_variables;
+        if(str_ptr !is null){
+            end_horribly();
+        }
+
         string variable = instructions[0];
         string[] evaluate = instructions[2 .. $];
 
