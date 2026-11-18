@@ -29,7 +29,7 @@ bool eval(ulong[string] labels, long[string] int_variables, string[string] str_v
     }
 
     //string assignment
-    if(instructions.length >=3 && instructions[1] == "@"){
+    if(instructions.length >=3 && instructions[1] == "#"){
         //check if variable has already been declared as an integer
         long *int_ptr = instructions[0] in int_variables;
         if(int_ptr !is null){

@@ -76,6 +76,10 @@ void main(string[] args)
 		switch(c){
 			case '\t':
 				break;
+			case '@':
+				goto case '/';
+			case '#':
+				goto case '/';
 			case ';':
 				goto case '/';
 			case '<':
